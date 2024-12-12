@@ -1,8 +1,12 @@
 {{-- Pages for see data symptom --}}
 <x-dashboard-layout>
     <div class="box">
-        <div class="box-header">
-            <h3 class="box-title">Data Gejala</h3>
+        <div
+            style="justify-content: space-between; display:flex; padding: 0.8rem; height: 6rem; align-items:center; margin-top:0">
+            <h3>Data Gejala</h3>
+            <a href="{{ route('symptom.create') }}">
+                <button class="btn btn-primary">Tambah Gejala</button>
+            </a>
         </div><!-- /.box-header -->
         <div class="box-body">
             <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
