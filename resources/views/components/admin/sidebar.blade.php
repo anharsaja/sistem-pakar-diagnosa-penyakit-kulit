@@ -24,17 +24,17 @@
         </li>
         <li class="header">DASHBOARD ADMIN</li>
         <li class="">
-            <a href="pages/widgets.html">
+            <a href="{{ route('dashboard') }}">
                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
         <li class="">
-            <a href="pages/widgets.html">
+            <a href="{{ route('symptom') }}">
                 <i class="fa fa-th"></i> <span>Data Gejala</span>
             </a>
         </li>
         <li class="">
-            <a href="pages/widgets.html">
+            <a href="{{ route('disease') }}">
                 <i class="fa fa-th"></i> <span>Data Penyakit</span>
             </a>
         </li>
