@@ -2,7 +2,7 @@
     <!-- Sidebar user panel -->
     <div class="user-panel">
         <div class="pull-left image">
-            <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+            <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
             <p>{{ auth()->user()->name }}</p>
@@ -30,8 +30,8 @@
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                 </a>
             </li>
-            <li class="{{ Route::currentRouteName() == 'symptom' ? 'active' : '' }}">
-                <a href="{{ route('symptom') }}">
+            <li class="{{ Route::currentRouteName() == 'symptom.index' ? 'active' : '' }}">
+                <a href="{{ route('symptom.index') }}">
                     <i class="fa fa-th"></i> <span>Data Gejala</span>
                 </a>
             </li>
