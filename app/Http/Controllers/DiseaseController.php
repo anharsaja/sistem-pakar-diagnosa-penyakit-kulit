@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Disease;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Disease;
 
 class DiseaseController extends Controller
 {
@@ -12,7 +12,8 @@ class DiseaseController extends Controller
     public function index()
     {
         $diseases = Disease::all();
-        return response()->json($diseases);
+        // return response()->json($diseases);
+        return view("pages.diseases.index", compact("diseases"));
     }
 
 
