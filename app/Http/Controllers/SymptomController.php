@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Disease;
 use App\Models\Symptom;
 use Illuminate\Http\Request;
 
@@ -27,7 +28,8 @@ class SymptomController extends Controller
      */
     public function create()
     {
-        //
+        $diseases = Disease::all();
+        return view('pages.symptom.create', compact('diseases'));
     }
 
     /**
@@ -35,8 +37,29 @@ class SymptomController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(
+            [
+                'name' => 'required',
+                'code' => 'required',
+            ],
+            [
+                'required' => 'Data wajib diisi'
+            ]
+        );
+        try {
+
+            Symptom::create([
+                'name' => $request->name,
+                'code' => $request->code,
+            ]);
+            return redirect()->route('symptom.index')->with('success', 'data berhasil ditambahkan');
+        } catch (\Throwable $e) {
+            return redirect()->back()->withError($e->getMessage());
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->back()->withError($e->getMessage());
+        }
     }
+
 
     /**
      * Display the specified resource.
