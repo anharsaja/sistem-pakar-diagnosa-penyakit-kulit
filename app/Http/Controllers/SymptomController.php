@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Symptom;
 use Illuminate\Http\Request;
 
 class SymptomController extends Controller
@@ -12,9 +13,12 @@ class SymptomController extends Controller
     public function index()
     {
         try {
-            return view('pages.admin.symptom.index');
-        } catch (\Throwable $th) {
-            //throw $th;
+            $symptoms = Symptom::with('disease')->get();
+            return view('pages.symptom.index', compact('symptoms'));
+        } catch (\Throwable $e) {
+            return redirect()->back()->withError($e->getMessage());
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->back()->withError($e->getMessage());
         }
     }
 

@@ -10,9 +10,6 @@ Route::middleware("auth")->group(function () {
     Route::get('/', function () {
       return view('welcome');
     })->name('dashboard');
-    Route::get('/symptom', function () {
-      return view('welcome');
-    })->name('symptom');
     Route::resource('/symptom', SymptomController::class);
     Route::resource('/disease', DiseaseController::class);
   });

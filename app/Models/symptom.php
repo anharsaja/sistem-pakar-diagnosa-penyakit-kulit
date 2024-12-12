@@ -9,5 +9,11 @@ class Symptom extends Model
 {
     use HasFactory;
 
-    private $guarded = 'id';
+    protected $guarded = 'id';
+
+
+    public function disease()
+    {
+        return $this->belongsTo(Disease::class, 'disease_id');
+    }
 }
