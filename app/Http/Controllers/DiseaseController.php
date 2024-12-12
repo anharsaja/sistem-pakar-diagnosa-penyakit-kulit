@@ -13,7 +13,10 @@ class DiseaseController extends Controller
     {
         $diseases = Disease::all();
         // return response()->json($diseases);
-        return view("pages.diseases.index", compact("diseases"));
+        return view(
+            "pages.diseases.index",
+            compact("diseases")
+        );
     }
 
 
@@ -55,8 +58,9 @@ class DiseaseController extends Controller
 
     public function destroy(Disease $disease)
     {
+        // Temukan penyakit berdasarkan ID
         $disease->delete();
-
-        return response()->json(null, 204);
+        // return response()->json(null, 204);
+        return redirect()->back();
     }
 }
