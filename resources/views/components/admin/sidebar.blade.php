@@ -35,8 +35,8 @@
                     <i class="fa fa-th"></i> <span>Data Gejala</span>
                 </a>
             </li>
-            <li class="{{ Route::currentRouteName() == 'disease' ? 'active' : '' }}">
-                <a href="{{ route('disease') }}">
+            <li class="{{ Route::currentRouteName() == 'disease.index' ? 'active' : '' }}">
+                <a href="{{ route('disease.index') }}">
                     <i class="fa fa-th"></i> <span>Data Penyakit</span>
                 </a>
             </li>

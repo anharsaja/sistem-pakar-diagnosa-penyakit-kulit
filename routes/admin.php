@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DiseaseController;
 
 
 Route::middleware("auth")->group( function () {
@@ -11,9 +12,7 @@ Route::middleware("auth")->group( function () {
     Route::get('/symptom', function () {
       return view('welcome');
     })->name('symptom');
-    Route::get('/disease', function () {
-      return view('welcome');
-    })->name('disease');
+    Route::resource('/disease', DiseaseController::class);
 
   });
 });
