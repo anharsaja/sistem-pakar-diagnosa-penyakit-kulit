@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             [
                 'name' => 'Admin User',
-                'email' => 'admin.com',
+                'email' => 'admin@admin.com',
                 'email_verified_at' => now(),
                 'password' => Hash::make('asd'), // Replace with a secure password
                 'role' => 'admin',
@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'name' => 'Patient User',
-                'email' => 'patient.com',
+                'email' => 'patient@patient.com',
                 'email_verified_at' => now(),
                 'password' => Hash::make('asd'), // Replace with a secure password
                 'role' => 'patient',
