@@ -19,20 +19,35 @@ class DiseaseController extends Controller
         );
     }
 
+    public function create()
+    {
+        $diseases = Disease::all();
+        return view('pages.diseases.create', compact('diseases'));
+    }
+
 
     public function store(Request $request)
     {
         $request->validate([
-            'code' => 'required|string|unique:diseases,code',
+            'code' => 'required|string',
             'name' => 'required|string',
         ]);
 
-        $disease = Disease::create([
-            'code' => $request->code,
-            'name' => $request->name,
-        ]);
+        try {
+            Disease::create([
+                'code' => $request->code,
+                'name' => $request->name,
+            ]);
 
-        return response()->json($disease, 201);
+            return redirect()->route('disease.index')->with('success', 'data berhasil ditambahkan');
+        } catch (\Throwable $e) {
+            // return redirect()->back()->withError($e->getMessage());
+            return redirect()->back()->with('error', 'Data tidak boleh sama dengan data yang ada');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->back()->with('error', 'Data tidak boleh sama dengan data yang ada');
+        }
+
+        // return response()->json($disease, 201);
     }
 
 
