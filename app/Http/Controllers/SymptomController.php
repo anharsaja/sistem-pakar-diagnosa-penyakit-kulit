@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Certainty;
 use App\Models\Disease;
 use App\Models\Symptom;
 use Illuminate\Http\Request;
@@ -13,14 +14,16 @@ class SymptomController extends Controller
      */
     public function index()
     {
-        try {
-            $symptoms = Symptom::with('disease')->get();
-            return view('pages.symptom.index', compact('symptoms'));
-        } catch (\Throwable $e) {
-            return redirect()->back()->withError($e->getMessage());
-        } catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->back()->withError($e->getMessage());
-        }
+        // try {
+            // $diseases = Symptom::get();
+            $diseases = Disease::get();
+         
+            return view('pages.symptom.index', compact('diseases'));
+        // } catch (\Throwable $e) {
+        //     // return redirect()->back()->withError($e->getMessage());
+        // } catch (\Illuminate\Database\QueryException $e) {
+        //     // return redirect()->back()->withError($e->getMessage());
+        // }
     }
 
     /**
@@ -41,16 +44,25 @@ class SymptomController extends Controller
             [
                 'name' => 'required',
                 'code' => 'required',
+                'disease_id' => 'required',
+                'value' => 'required',
             ],
             [
                 'required' => 'Data wajib diisi'
             ]
         );
-        try {
 
-            Symptom::create([
+        try {
+             $symptom = Symptom::create([
                 'name' => $request->name,
                 'code' => $request->code,
+
+            ]);
+
+            Certainty::create([
+                'disease_id' => $request->disease_id,
+                'symptom_id' => $symptom->id,
+                'value'=> $request->value,
             ]);
             return redirect()->route('symptom.index')->with('success', 'data berhasil ditambahkan');
         } catch (\Throwable $e) {

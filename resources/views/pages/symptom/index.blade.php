@@ -12,36 +12,44 @@
             <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                 <div class="row">
                     <div class="col-sm-12">
-                        <table id="example1" class="table table-bordered table-striped dataTable" role="grid"
+                        <table id="example" class="table table-bordered table-striped dataTable" role="grid"
                             aria-describedby="example1_info">
                             <thead>
                                 <tr>
                                     <th>No. </th>
-                                    <th>Code</th>
-                                    <th>Nama Gejala</th>
+                                    <th>Kode Penyakit</th>
                                     <th>Penyakit</th>
+                                    <th>Kode Gejala</th>
+                                    <th>Nama Gejala</th>
                                     <th>Expert Value</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($symptoms as $key => $symptom)
+                                @foreach ($diseases as $key => $disease)
                                     <tr>
-                                        <td>{{ $key + 1 }}</td>
-                                        <td> {{ $symptom->code }} </td>
-
-                                        <td> {{ $symptom->name }} </td>
-
-                                        <td> {{ $symptom->disease->name }} </td>
-
-                                        <td> {{ $symptom->expert_value }} </td>
-
-                                        <td class="flex">
-                                            <button class="btn btn-sm btn-warning">Edit</button>
-                                            <button class="btn btn-sm btn-danger">Hapus</button>
-                                        </td>
-
+                                        <!-- Merge No dan Nama Penyakit -->
+                                        <td rowspan="{{ $disease->symptoms->count() }}" class="merge">
+                                            {{ $key + 1 }}</td>
+                                        <td rowspan="{{ $disease->symptoms->count() }}" class="merge">
+                                            {{ $disease->code }}</td>
+                                        <td rowspan="{{ $disease->symptoms->count() }}" class="merge">
+                                            {{ $disease->name }}</td>
+                                        <!-- Gejala pertama -->
+                                        <td>{{ $disease->symptoms[0]->code }}</td>
+                                        <td>{{ $disease->symptoms[0]->name }}</td>
+                                        <td>{{ $disease->symptoms[0]->pivot->value }}</td>
+                                        <td>ok</td>
                                     </tr>
+                                    <!-- Gejala berikutnya -->
+                                    @foreach ($disease->symptoms->slice(1) as $symptom)
+                                        <tr>
+                                            <td>{{ $symptom->code }}</td>
+                                            <td>{{ $symptom->name }}</td>
+                                            <td>{{ $symptom->pivot->value }}</td>
+                                            <td>ok</td>
+                                        </tr>
+                                    @endforeach
                                 @endforeach
                             </tbody>
                         </table>
