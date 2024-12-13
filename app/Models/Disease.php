@@ -11,8 +11,10 @@ class Disease extends Model
 
     protected $guarded = ['id'];
 
-    public function symptom()
+    public function symptoms()
     {
-        return $this->hasMany(Symptom::class, 'id');
+        return $this->belongsToMany(Symptom::class, 'certainties')
+                    ->withPivot('value')
+                    ->withTimestamps();
     }
 }

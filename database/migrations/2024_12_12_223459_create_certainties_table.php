@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('disease_id');
             $table->unsignedBigInteger('symptom_id');
-            $table->integer('value');
+            $table->decimal('value');
             $table->timestamps();
         });
     }
