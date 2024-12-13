@@ -24,19 +24,20 @@
                                 <td>
                                     <!-- Tombol Hapus yang memunculkan modal -->
                                     <button type="button" class="btn btn-app" style="min-width: 60px !important"
-                                        data-toggle="modal" data-target="#editModal" data-id="{{ $disease->id }}">
+                                        data-toggle="modal" data-target="#editModal{{ $disease->id }}"
+                                        data-id="{{ $disease->id }}">
                                         <i class="fa fa-edit"></i> Hapus
                                     </button>
                                     <button type="button" class="btn btn-app" style="min-width: 60px !important"
-                                        data-toggle="modal" data-target="#deleteModal" data-id="{{ $disease->id }}">
+                                        data-toggle="modal" data-target="#deleteModal{{ $disease->id }}"
+                                        data-id="{{ $disease->id }}">
                                         <i class="fa fa-trash"></i> Hapus
                                     </button>
                                 </td>
                             </tr>
 
-
                             {{-- modal delete --}}
-                            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
+                            <div class="modal fade" id="deleteModal{{ $disease->id }}" tabindex="-1" role="dialog"
                                 aria-labelledby="deleteModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -65,6 +66,44 @@
                                         </form>
                                     </div>
                                 </div>
+                            </div>
+
+                            {{-- edit  modal --}}
+                            <div class="modal fade" id="editModal{{ $disease->id }}" tabindex="-1" role="dialog"
+                                aria-labelledby="editModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <h4 class="modal-title" id="editModalLabel">Edit Data Penyakit
+                                                <b>{{ $disease->name }}</b>
+                                            </h4>
+                                        </div>
+                                        <form id="edit-form" action="{{ route('disease.update', $disease->id) }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label for="code">Code Penyakit</label>
+                                                    <input type="text" class="form-control" id="code" name="code" value="{{ old('code', $disease->code) }}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="name">Nama Penyakit</label>
+                                                    <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $disease->name) }}">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-outline pull-left"
+                                                    data-dismiss="modal" style="background-color: grey;">Batal</button>
+                                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         @endforeach
                     </tbody>
                 </table>
@@ -72,39 +111,5 @@
         </div><!-- /.box-body -->
     </div><!-- /.box -->
 
-    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title" id="editModalLabel">Edit Data Penyakit <b>{{ $disease->name }}</b></h4>
-                </div>
-                <form id="edit-form" action="{{ route('disease.update', $disease->id) }}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="input1">Code Penyakit</label>
-                            <input type="text" class="form-control" id="input1" name="input1"
-                                placeholder="Enter the code">
-                        </div>
-                        <div class="form-group">
-                            <label for="input2">Nama Penyakit</label>
-                            <input type="text" class="form-control" id="input2" name="input2"
-                                placeholder="Enter the name">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline pull-left" data-dismiss="modal"
-                            style="background-color: grey;">Batal</button>
-                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 
 </x-dashboard-layout>
