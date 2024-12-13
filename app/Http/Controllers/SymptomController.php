@@ -14,16 +14,15 @@ class SymptomController extends Controller
      */
     public function index()
     {
-        // try {
-            // $diseases = Symptom::get();
+        try {
             $diseases = Disease::get();
-         
+
             return view('pages.symptom.index', compact('diseases'));
-        // } catch (\Throwable $e) {
-        //     // return redirect()->back()->withError($e->getMessage());
-        // } catch (\Illuminate\Database\QueryException $e) {
-        //     // return redirect()->back()->withError($e->getMessage());
-        // }
+        } catch (\Throwable $e) {
+            return redirect()->back()->withError($e->getMessage());
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->back()->withError($e->getMessage());
+        }
     }
 
     /**
@@ -53,7 +52,7 @@ class SymptomController extends Controller
         );
 
         try {
-             $symptom = Symptom::create([
+            $symptom = Symptom::create([
                 'name' => $request->name,
                 'code' => $request->code,
 
@@ -62,7 +61,7 @@ class SymptomController extends Controller
             Certainty::create([
                 'disease_id' => $request->disease_id,
                 'symptom_id' => $symptom->id,
-                'value'=> $request->value,
+                'value' => $request->value,
             ]);
             return redirect()->route('symptom.index')->with('success', 'data berhasil ditambahkan');
         } catch (\Throwable $e) {
@@ -86,7 +85,10 @@ class SymptomController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $diseases = Disease::all();
+        $symptom = Symptom::findOrFail($id);
+        $selectedDisease = $symptom->disease()->pluck('diseases.id')->toArray();
+        return view('pages.symptom.edit', compact('diseases', 'symptom', 'selectedDisease'));
     }
 
     /**
@@ -94,7 +96,33 @@ class SymptomController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'code' => 'required'
+        ]);
+        try {
+            $dataSymptom = Symptom::find($id);
+
+            $dataSymptom->update([
+                'code' => $request->code,
+                'name' => $request->name
+            ]);
+
+
+            $dataCertainty = Certainty::where('disease_id', $request->diseaseID)->where('symptom_id', $dataSymptom->id)->first();
+
+            if ($request->diseaseID != $request->disease_id) {
+                $dataCertainty->disease_id = $request->disease_id;
+            }
+            $dataCertainty->value = $request->value;
+            $dataCertainty->save();
+
+            return redirect()->route('symptom.index')->with('success', 'data berhasil diubah');
+        } catch (\Throwable $e) {
+            return redirect()->back()->withError($e->getMessage());
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->back()->withError($e->getMessage());
+        }
     }
 
     /**
@@ -102,6 +130,16 @@ class SymptomController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $symptom = Symptom::findOrFail($id);
+
+            $symptom->delete();
+
+            return redirect()->back()->with('success', 'data berhasil dihapus');
+        } catch (\Throwable $e) {
+            return redirect()->back()->withError($e->getMessage());
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->back()->withError($e->getMessage());
+        }
     }
 }
