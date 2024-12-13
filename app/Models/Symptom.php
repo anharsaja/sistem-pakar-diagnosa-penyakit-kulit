@@ -12,8 +12,9 @@ class Symptom extends Model
     protected $guarded = ['id'];
 
 
-    // public function disease()
-    // {
-    //     return $this->belongsTo(Disease::class, 'disease_id');
-    // }
+    public function disease()
+    {
+        return $this->belongsToMany(Disease::class, 'certainties', 'symptom_id', 'disease_id');
+    }
 }
+
