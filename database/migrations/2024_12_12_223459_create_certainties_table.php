@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('symptoms', function (Blueprint $table) {
+        Schema::create('certainties', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->unique();
-            $table->string('name');
+            $table->unsignedBigInteger('disease_id');
+            $table->unsignedBigInteger('symptom_id');
+            $table->integer('value');
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('symptoms');
+        Schema::dropIfExists('certainties');
     }
 };
