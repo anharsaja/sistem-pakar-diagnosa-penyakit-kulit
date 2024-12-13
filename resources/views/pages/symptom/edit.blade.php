@@ -20,27 +20,31 @@
         </div>
         <div class="box box-primary" style="max-width: 660px; margin-right:auto; margin-left:auto; margin-top:3rem">
             <div class="box-header with-border">
-                <h3 class="box-title">Tambah Data Gejala</h3>
+                <h3 class="box-title">Edit Data Gejala</h3>
             </div><!-- /.box-header -->
             <!-- form start -->
-            <form role="form" action="{{ route('symptom.store') }}" method="post">
+            <form role="form" action="{{ route('symptom.update', $symptom->id) }}" method="post">
+                <input type="hidden" value="{{ $selectedDisease[0] }}" name="diseaseID">
                 @csrf
+                @method('PUT')
                 <div class="box-body">
                     <div class="form-group">
                         <label for="namaGejala">Nama Gejala</label>
                         <input type="text" name="name" class="form-control" id="namaGejala"
-                            placeholder="Masukkan Nama Gejala">
+                            placeholder="Masukkan Nama Gejala" value="{{ $symptom->name }}">
                     </div>
                     <div class="form-group">
                         <label for="code">Code Gejala</label>
                         <input type="text" name="code" class="form-control" id="code"
-                            placeholder="Masukkan Kode">
+                            placeholder="Masukkan Kode" value="{{ $symptom->code }}">
                     </div>
                     <div class="form-group">
                         <label for="code">Nama Penyakit</label>
                         <select id="value" class="form-control" name="disease_id">
                             @foreach ($diseases as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                <option value="{{ $item->id }}"
+                                    {{ in_array($item->id, $selectedDisease) ? 'selected' : '' }}>{{ $item->name }}
+                                </option>
                             @endforeach
 
                         </select>
