@@ -41,19 +41,22 @@ class DiseaseController extends Controller
         return response()->json($disease);
     }
 
-    public function update(Request $request, Disease $disease)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'code' => 'required|string|unique:diseases,code,' . $disease->id,
+            'code' => 'required|string',
             'name' => 'required|string',
         ]);
+
+        $disease = Disease::findOrFail($id); // Akan menampilkan 404 jika tidak ditemukan
 
         $disease->update([
             'code' => $request->code,
             'name' => $request->name,
         ]);
 
-        return response()->json($disease);
+        // return response()->json($disease);
+        return redirect()->back();
     }
 
     public function destroy(Disease $disease)
