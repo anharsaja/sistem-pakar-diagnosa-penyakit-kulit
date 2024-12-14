@@ -22,6 +22,15 @@
                 <a href="{{ route('hasil') }}">
                     <i class="fa fa-th"></i> <span>Hasil</span>
                 </a>
+            </li>\
+            <li class="">
+                <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <i class="fa fa-th"></i> <span>Keluar</span>
+                </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
             </li>
         @else
             <li class="header">DASHBOARD ADMIN</li>
@@ -39,15 +48,6 @@
                 <a href="{{ route('disease.index') }}">
                     <i class="fa fa-th"></i> <span>Data Penyakit</span>
                 </a>
-            </li>
-            <li class="">
-                <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    <i class="fa fa-th"></i> <span>Keluar</span>
-                </a>
-
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
             </li>
         @endif
     </ul>
