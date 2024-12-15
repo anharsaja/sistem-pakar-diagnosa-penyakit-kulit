@@ -25,6 +25,11 @@ class DiseaseController extends Controller
         return view('pages.diseases.create', compact('diseases'));
     }
 
+    public function edit(string $id)
+    {
+        $disease = Disease::findOrFail($id);
+        return view('pages.diseases.edit', compact('disease'));
+    }
 
     public function store(Request $request)
     {
@@ -59,26 +64,36 @@ class DiseaseController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'code' => 'required|string',
-            'name' => 'required|string',
+            'name' => 'required',
+            'code' => 'required'
         ]);
+        try {
+            $dataSymptom = Disease::find($id);
 
-        $disease = Disease::findOrFail($id); // Akan menampilkan 404 jika tidak ditemukan
+            $dataSymptom->update([
+                'code' => $request->code,
+                'name' => $request->name
+            ]);
 
-        $disease->update([
-            'code' => $request->code,
-            'name' => $request->name,
-        ]);
 
-        // return response()->json($disease);
-        return redirect()->back();
+            return redirect()->route('disease.index')->with('success', 'data berhasil diubah');
+        } catch (\Throwable $e) {
+            return redirect()->back()->withError($e->getMessage());
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->back()->withError($e->getMessage());
+        }
     }
-
     public function destroy(Disease $disease)
     {
-        // Temukan penyakit berdasarkan ID
-        $disease->delete();
-        // return response()->json(null, 204);
-        return redirect()->back();
+        try {
+            // Temukan penyakit berdasarkan ID
+            $disease->delete();
+            // return response()->json(null, 204);
+            return redirect()->back()->with('success', 'data berhasil dihapus');
+        } catch (\Throwable $e) {
+            return redirect()->back()->withError($e->getMessage());
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->back()->withError($e->getMessage());
+        }
     }
 }
