@@ -21,7 +21,7 @@
                                 <button type="button" class="btn btn-success" data-dismiss="modal">Tutup</button>
                             </div>
                         </div>
-                    </div>
+                    </div>   
                 </div>
             @endif
 
