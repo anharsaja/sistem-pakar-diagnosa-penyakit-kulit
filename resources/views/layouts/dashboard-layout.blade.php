@@ -17,7 +17,11 @@
         </aside>
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
+        <div class="content-wrapper"
+            style="    background: url(/bg.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: -120px">
             <x-admin.breadcrumb />
 
             <!-- Main content -->
