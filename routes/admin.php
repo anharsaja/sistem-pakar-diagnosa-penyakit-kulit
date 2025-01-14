@@ -4,7 +4,6 @@ use App\Http\Controllers\SymptomController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DiseaseController;
 
-
 Route::middleware("auth")->group(function () {
   Route::group(["prefix" => "admin"], function () {
     Route::get('/', function () {
