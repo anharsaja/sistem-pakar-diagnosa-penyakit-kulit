@@ -1,4 +1,24 @@
 <x-dashboard-layout>
+
+    <div style="m margin-right:auto; margin-left:auto; margin-top:3rem">
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4> <i class="icon fa fa-check"></i> Success</h4>
+                {{ session('success') }}
+            </div>
+        @endif
+        @if (session('error'))
+            <div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-ban"></i> Failed</h4>
+                `{{ session('error') }}`
+            </div>
+        @endif
+
+    </div>
+    
+    
     <div class="box">
         <div class="box-header">
             <h3 class="box-title">Diagnosa</h3>
