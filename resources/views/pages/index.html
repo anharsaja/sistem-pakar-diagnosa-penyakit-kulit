@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmedia Teknologi Kreatif</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .server-message {
+            text-align: center;
+        }
+        .loading {
+            font-size: 50px;
+            color: grey;
+            margin-bottom: 20px;
+        }
+        .volume {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            margin: 0 auto;
+            height: 50px;
+            width: 100px;
+            gap: 5px;
+        }
+        .bar {
+            width: 15px;
+            height: 0;
+            background-color: #a56565;
+            animation: loading 1s infinite alternate;
+        }
+        @keyframes loading {
+            0% { height: 10px; }
+            100% { height: 50px; }
+        }
+        .countdown {
+            font-size: 30px;
+            color: #a56565;
+        }
+    </style>
+</head>
+<body>
+
+<div class="server-message">
+    <h1 style="font-size: 85px;margin: 0;font-weight: 300;line-height: 1.1;color:grey;">Farmedia Teknologi Kreatif</h1>
+    <h2 style="margin-top: 2%;margin-bottom: 2%;font-weight: 300;line-height: 1.1;color: #a56565;">"Inovasi, Kolaborasi, Solusi."</h2>
+    <p style="font-size: 35px;margin: 1%;font-weight: 300;line-height: 1.1;color:grey;"><u>Since 2020</u></p>
+    <p style="font-size: 35px;margin: 1%;font-weight: 300;line-height: 1.1;color:grey;"><i>WhatsApp : 0816238785</i></p>
+    
+    <div class="loading">Loading...</div>
+    <div class="volume">
+        <div class="bar" style="animation-delay: 0s;"></div>
+        <div class="bar" style="animation-delay: 0.1s;"></div>
+        <div class="bar" style="animation-delay: 0.2s;"></div>
+        <div class="bar" style="animation-delay: 0.3s;"></div>
+        <div class="bar" style="animation-delay: 0.4s;"></div>
+    </div>
+    <div class="countdown" id="countdown">10</div>
+</div>
+
+<script>
+    let countdownElement = document.getElementById('countdown');
+    let countdown = 10; // Mengubah hitungan mundur menjadi 10 detik
+
+    const interval = setInterval(() => {
+        countdown--;
+        countdownElement.textContent = countdown;
+
+        if (countdown <= 0) {
+            clearInterval(interval);
+            window.location.href = "https://fartekno.com";
+        }
+    }, 1000);
+</script>
+
+</body>
+</html>
