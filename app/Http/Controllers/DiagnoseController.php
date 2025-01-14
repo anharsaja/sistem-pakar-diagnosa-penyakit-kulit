@@ -138,7 +138,7 @@ class DiagnoseController extends Controller
             $disease = reset($disease);
             return view("pages.diagnosa.diagnosa", compact("diagnosaAkhir", "symptoms"));
         } catch (\Throwable $th) {
-            dd($th);
+            // dd($th);
             return redirect()->back()->with("error", "Harus mengisi diagnosa terlebih dahulu");
         }
 
