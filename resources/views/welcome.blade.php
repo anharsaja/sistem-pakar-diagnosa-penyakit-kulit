@@ -112,7 +112,7 @@
                             <div class="col-md-12"
                                 style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
                                 <div style="width: 100%; display: flex; justify-content: end;">
-                                    <a href="" class="btn btn-primary">Login</a>
+                                    <a href="{{ route("login") }}" class="btn btn-primary">Login</a>
                                 </div>
                                 <div style="width: 100px; height: 100px; border-radius: 100px; overflow: hidden; ">
                                     <img src="https://img.freepik.com/free-photo/brunette-girl-posing-with-carnation_23-2148136087.jpg?t=st=1735646280~exp=1735649880~hmac=90c0c713c9519ba29befc972f9e6d63115a11577ab33b22594b21ca0b7b481be&w=740"
