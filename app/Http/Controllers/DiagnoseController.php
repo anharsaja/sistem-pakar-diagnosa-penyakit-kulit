@@ -115,7 +115,8 @@ class DiagnoseController extends Controller
                 array_push($diagnosaAkhir, [
                     "disease" => $disease->name,
                     "certainty" => $CFcombined * 100,
-                    "description" => $disease->description
+                    "description" => $disease->description,
+                    "suggestion" => $disease->suggestion
                 ]);
             }
     
@@ -136,7 +137,7 @@ class DiagnoseController extends Controller
                 return $item['certainty'] == $maxCertainty;
             });
             $disease = reset($disease);
-            return view("pages.diagnosa.diagnosa", compact("diagnosaAkhir", "symptoms"));
+            return view("pages.diagnosa.diagnosa", compact("diagnosaAkhir", "symptoms", "disease", "labels", "values"));
         } catch (\Throwable $th) {
             // dd($th);
             return redirect()->back()->with("error", "Harus mengisi diagnosa terlebih dahulu");
@@ -234,7 +235,8 @@ class DiagnoseController extends Controller
                 array_push($diagnosaAkhir, [
                     "disease" => $disease->name,
                     "certainty" => $CFcombined * 100,
-                    "description" => $disease->description
+                    "description" => $disease->description,
+                    "suggestion" => $disease->suggestion
                 ]);
             }
             // die;

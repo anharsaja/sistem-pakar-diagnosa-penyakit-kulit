@@ -18,7 +18,10 @@
                     <div class="keterangan"
                         style="background: rgb(236, 88, 179); padding: 10px; border-radius: 10px; border: 1px solid red; color: white;">
                         {{ $disease['description'] }}
-
+                    </div>
+                    <div class="keterangan"
+                        style="background: rgba(158, 32, 255, 0.333); padding: 10px; margin-top: 20px; border-radius: 10px; border: 1px solid rgb(51, 0, 255); color: white;">
+                        {{ $disease['suggestion'] }}
                     </div>
                 </div>
                 <div class="col-md-6">
