@@ -353,7 +353,8 @@ class DiagnoseController extends Controller
                 array_push($diagnosaAkhir, [
                     "disease" => $disease->name,
                     "certainty" => $CFcombined * 100,
-                    "description" => $disease->description
+                    "description" => $disease->description,
+                    "suggestion" => $disease->suggestion
                 ]);
             }
             // die;

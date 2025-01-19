@@ -205,6 +205,11 @@
                 </table>
             </div>
         </div>
+        <h3>Solusi</h3>
+        <div class="keterangan"
+            style="padding: 10px; margin-top: 20px; border-radius: 10px; border: 1px solid rgb(51, 0, 255); color: rgb(50, 50, 50);">
+            {{ $disease['suggestion'] }}
+        </div>
     </div>
 </body>
 <script>

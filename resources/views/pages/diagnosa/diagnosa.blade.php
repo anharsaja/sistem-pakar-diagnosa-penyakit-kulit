@@ -16,11 +16,11 @@
             <div class="row mx-3 mt-5" style="margin: 20px;">
                 <div class="col-md-6" style="padding: 20px;">
                     <div class="keterangan"
-                        style="background: rgb(236, 88, 179); padding: 10px; border-radius: 10px; border: 1px solid red; color: white;">
+                        style="background: rgb(240, 93, 184); padding: 10px; border-radius: 10px; border: 1px solid red; color: rgb(77, 54, 54);">
                         {{ $disease['description'] }}
                     </div>
                     <div class="keterangan"
-                        style="background: rgba(158, 32, 255, 0.333); padding: 10px; margin-top: 20px; border-radius: 10px; border: 1px solid rgb(51, 0, 255); color: white;">
+                        style="background: rgba(158, 32, 255, 0.333); padding: 10px; margin-top: 20px; border-radius: 10px; border: 1px solid rgb(51, 0, 255); color: rgb(50, 50, 50);">
                         {{ $disease['suggestion'] }}
                     </div>
                 </div>
