@@ -23,7 +23,6 @@ class DiagnoseController extends Controller
         try {
             $symptomIds = $request->symptoms;
             $valueP = $request->value;
-            
             $diagnoses = Diagnose::where("user_id", Auth::user()->id)->first();
             if($diagnoses){
                 $diagnoses->symptomps = json_encode($symptomIds);
@@ -36,14 +35,14 @@ class DiagnoseController extends Controller
                     "value" => json_encode($valueP),
                 ]);
             }
-
+            
             $dataDiagnosa = [];
-    
+            
             foreach ($symptomIds as $key => $id) {
                 // echo "". $id ."" .$key."<br/>";
                 array_push($dataDiagnosa, [$id, $valueP[$key]]);
             }
-    
+            
             $diseases = Disease::whereHas('symptoms', function ($query) use ($symptomIds) {
                 $query->whereIn('symptoms.id', $symptomIds);
             })->get();
@@ -58,19 +57,19 @@ class DiagnoseController extends Controller
                         array_push($data, $symptom->pivot->value);
                     }
                 }
-                if(count($symptomIds) /2 <= $jumlah){
+                if(0 < $jumlah){
                     array_push($diseaseIds, $key);
                 }
-             
+                
             }
-    
+            
             $diagnosaAkhir = [];
-    
+            
             foreach ($diseaseIds as $diseaseId => $idx) {
-    
+                
                 $disease = $diseases[$idx];
                 // echo $disease->name."<br/>";
-               
+                
                 $symIds = [];
                 $syms = [];
                 foreach ($disease->symptoms as $symptom){
@@ -80,7 +79,7 @@ class DiagnoseController extends Controller
                     }
                 }
                 // echo implode(",", $symIds);
-    
+                
                 // echo implode(",", $symIds) . "<br/>";
                 
                 $data = [];
@@ -100,18 +99,16 @@ class DiagnoseController extends Controller
                     }
                 }
                 // echo implode(",", $data) ."<br/>";
-    
+                
                 $CFcombined = $data[0];
                 $no = 1;
                 while (count($data) - 1 >= $no) {
                     $new = $CFcombined + $data[$no] * ( 1 - abs($CFcombined));
-                    // echo $CFcombined ."+" . $data[$no] . "* (" . 1 . "-" . abs($CFcombined).") = ".$new." <br/>";
                     $CFcombined = $new;
                     $no ++;
-    
+                    
                 }
     
-                // echo $CFcombined*100 ."% <br/>";
                 array_push($diagnosaAkhir, [
                     "disease" => $disease->name,
                     "certainty" => $CFcombined * 100,
@@ -119,7 +116,7 @@ class DiagnoseController extends Controller
                     "suggestion" => $disease->suggestion
                 ]);
             }
-    
+            
             $symptoms = Symptom::whereIn("id", $symptomIds)->get();
             $labels = [];
             $values = [];
@@ -129,9 +126,10 @@ class DiagnoseController extends Controller
                 $values[] = $diagnosaAkhir[$i]['certainty'];
             }
 
+
             // Mencari nilai certainty tertinggi
             $maxCertainty = max(array_column($diagnosaAkhir, 'certainty'));
-
+            
             // Mencari data dengan certainty tertinggi
             $disease = array_filter($diagnosaAkhir, function ($item) use ($maxCertainty) {
                 return $item['certainty'] == $maxCertainty;
@@ -139,7 +137,6 @@ class DiagnoseController extends Controller
             $disease = reset($disease);
             return view("pages.diagnosa.diagnosa", compact("diagnosaAkhir", "symptoms", "disease", "labels", "values"));
         } catch (\Throwable $th) {
-            // dd($th);
             return redirect()->back()->with("error", "Harus mengisi diagnosa terlebih dahulu");
         }
 
@@ -178,7 +175,7 @@ class DiagnoseController extends Controller
                         array_push($data, $symptom->pivot->value);
                     }
                 }
-                if(count($symptomIds) /2 <= $jumlah){
+                if(0 < $jumlah){
                     array_push($diseaseIds, $key);
                 }
              
@@ -353,8 +350,7 @@ class DiagnoseController extends Controller
                 array_push($diagnosaAkhir, [
                     "disease" => $disease->name,
                     "certainty" => $CFcombined * 100,
-                    "description" => $disease->description,
-                    "suggestion" => $disease->suggestion
+                    "description" => $disease->description
                 ]);
             }
             // die;
