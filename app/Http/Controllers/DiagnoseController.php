@@ -293,7 +293,7 @@ class DiagnoseController extends Controller
                         array_push($data, $symptom->pivot->value);
                     }
                 }
-                if(count($symptomIds) /2 <= $jumlah){
+                if(0 < $jumlah){
                     array_push($diseaseIds, $key);
                 }
              
@@ -350,7 +350,8 @@ class DiagnoseController extends Controller
                 array_push($diagnosaAkhir, [
                     "disease" => $disease->name,
                     "certainty" => $CFcombined * 100,
-                    "description" => $disease->description
+                    "description" => $disease->description,
+                    "suggestion" => $disease->suggestion
                 ]);
             }
             // die;
